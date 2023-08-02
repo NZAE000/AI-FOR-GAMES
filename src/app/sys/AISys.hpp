@@ -23,12 +23,12 @@ private:
 	};
 
 	// Steering Behavior
-	void arrive(AICmp_t& aicmp, ENG::EntityManager_t&) const;
-	void seek(PhysicsCmp_t&, Point2D_t const&, float timeArrive) const;
-	void flee(PhysicsCmp_t&, Point2D_t const&, float timeArrive) const;
+	SteerTarget_t arrive(PhysicsCmp_t const&, AISys_t::Point2D_t const&, float arrivalTime, float arrivalRadius) const;
+	SteerTarget_t seek(PhysicsCmp_t const&, Point2D_t const&, float arrivalTime) const;
+	SteerTarget_t flee(PhysicsCmp_t const&, Point2D_t const&, float arrivalTime) const;
 
 	constexpr auto calculatePointDistance(Point2D_t const&, Point2D_t const&) const;
 	constexpr float calculateAngle(Point2D_t const&) const;
-	constexpr SteerTarget_t alignAngle(float originOrien, float targetOrien, float timeArrive) const;
-	constexpr double adjustBestAngle(float& angle) const;
+	constexpr float alignAngle(float originOrien, float targetOrien, float arrivalTime) const;
+	constexpr float adjustBestAngle(float& angle) const;
 };
