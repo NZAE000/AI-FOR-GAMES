@@ -71,16 +71,16 @@ void createEntities(GOFactory_t& goFactory)
 	// ENTITY-1 WITH AI
 	auto& ent1   = goFactory.createVisitor(500, 300, obs.getID());
 	auto* aiCmp1 = ent1.getComponent<AICmp_t>();
-	aiCmp1->targetActive = true;
-	aiCmp1->radiusArrive = 15.0;
-	aiCmp1->timeArrive   = 0.5;
-	aiCmp1->stBehavior	 = AICmp_t::SB::SEEK;
+	aiCmp1->targetActive  = true;
+	aiCmp1->arrivalRadius = 15.0;
+	aiCmp1->arrivalTime   = 0.5;
+	aiCmp1->stBehavior	  = AICmp_t::SB::SEEK;
 
 	// ENTITY-2 WITH AI
 	auto& ent2   = goFactory.createVisitor(100, 150, obs.getID());
 	auto* aiCmp2 = ent2.getComponent<AICmp_t>();
-	aiCmp2->targetActive = true;
-	aiCmp2->radiusArrive = 5.0;
-	aiCmp2->timeArrive   = 1.0;
-	aiCmp2->stBehavior	 = AICmp_t::SB::ARRIVE;
+	aiCmp2->targetActive  = true;
+	aiCmp2->arrivalRadius = 5.0;
+	aiCmp2->arrivalTime   = 1.0;
+	aiCmp2->stBehavior	  = AICmp_t::SB::ARRIVE;
 }
