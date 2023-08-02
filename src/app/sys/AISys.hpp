@@ -27,7 +27,7 @@ private:
 	void seek(PhysicsCmp_t&, Point2D_t const&, float timeArrive) const;
 	void flee(PhysicsCmp_t&, Point2D_t const&, float timeArrive) const;
 
-	constexpr auto getDistanceToTarget(Point2D_t const&, Point2D_t const&) const;
+	constexpr auto calculatePointDistance(Point2D_t const&, Point2D_t const&) const;
 	constexpr float calculateAngle(Point2D_t const&) const;
 	constexpr SteerTarget_t alignAngle(float originOrien, float targetOrien, float timeArrive) const;
 	constexpr double adjustBestAngle(float& angle) const;

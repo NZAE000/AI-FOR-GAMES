@@ -10,10 +10,10 @@ struct AICmp_t : ENG::Component_t<AICmp_t>{
 	{}
 
 	ENG::EntID_t eidTarget;
-	bool  targetActive { false };
-	float radiusArrive {   1.0 };
-	float timeArrive   {   1.0 };
-	SB 	  stBehavior   { SB::ARRIVE };
+	bool  targetActive  { false };
+	float arrivalRadius {   1.0 };
+	float arrivalTime   {   1.0 };
+	SB 	  stBehavior    { SB::ARRIVE };
 
 	bool  destroy      { false };	// TO DEVS
 };
