@@ -26,6 +26,7 @@ private:
 	SteerTarget_t arrive(PhysicsCmp_t const&, AISys_t::Point2D_t const&, float arrivalTime, float arrivalRadius) const;
 	SteerTarget_t seek(PhysicsCmp_t const&, Point2D_t const&, float arrivalTime) const;
 	SteerTarget_t flee(PhysicsCmp_t const&, Point2D_t const&, float arrivalTime) const;
+	SteerTarget_t pursue(PhysicsCmp_t const&, PhysicsCmp_t const&, float arrivalTime) const;
 
 	constexpr auto calculatePointDistance(Point2D_t const&, Point2D_t const&) const;
 	constexpr float calculateAngle(Point2D_t const&) const;
