@@ -108,6 +108,22 @@ flee(PhysicsCmp_t const& phycmp, Point2D_t const& pTargetToFlee, float arrivalTi
 	return seek(phycmp, pTarget, arrivalTime);
 }
 
+AISys_t::SteerTarget_t AISys_t::
+pursue(PhysicsCmp_t const& phycmpPersue, PhysicsCmp_t const& phycmpTarget, float arrivalTime) const
+{
+// DISTANCE TO TARGET
+	auto [disxT, disyT, distanceT] = calculatePointDistance({phycmpPersue.x, phycmpPersue.y}, {phycmpTarget.x, phycmpTarget.y});
+
+// MINIMUM TIME TO REACH THE TARGET
+	auto minimalTimeToTarget   { distanceT / PhysicsCmp_t::MAX_VLINEAR };
+
+// Prediction of the position of the target according to the minimum time to reach it	
+	const Point2D_t targetPointPrediction { phycmpTarget.x + phycmpTarget.vx*minimalTimeToTarget, phycmpTarget.y + phycmpTarget.vy*minimalTimeToTarget };
+
+	return seek(phycmpPersue, targetPointPrediction, arrivalTime);
+}
+
+
 void AISys_t::update(ENG::EntityManager_t& entMan) const
 {
 	auto& aiCmps = entMan.getCmps<AICmp_t>();
@@ -131,6 +147,8 @@ void AISys_t::update(ENG::EntityManager_t& entMan) const
 		case AICmp_t::SB::SEEK:		steer = seek(*phycmp, {phycmpT->x, phycmpT->y}, aicmp.arrivalTime);
 			break;
 		case AICmp_t::SB::FLEE:		steer = flee(*phycmp, {phycmpT->x, phycmpT->y}, aicmp.arrivalTime);
+			break;
+		case AICmp_t::SB::PURSUE:	steer = pursue(*phycmp, *phycmpT, aicmp.arrivalTime);
 			break;
 		default:
 			break;

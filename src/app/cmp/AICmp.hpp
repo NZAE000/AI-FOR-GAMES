@@ -3,7 +3,7 @@
 
 struct AICmp_t : ENG::Component_t<AICmp_t>{
 
-	enum class SB { ARRIVE, SEEK, FLEE };
+	enum class SB { ARRIVE, SEEK, FLEE, PURSUE };
 
 	explicit AICmp_t(ENG::EntID_t eid)
 	: Component_t(eid)
