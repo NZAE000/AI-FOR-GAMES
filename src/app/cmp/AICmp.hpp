@@ -1,5 +1,6 @@
 #pragma once
 #include <engine/cmp/component.hpp>
+#include <app/util/point2d.hpp>
 
 struct AICmp_t : ENG::Component_t<AICmp_t>{
 
@@ -9,11 +10,11 @@ struct AICmp_t : ENG::Component_t<AICmp_t>{
 	: Component_t(eid)
 	{}
 
-	ENG::EntID_t eidTarget;
+	Point2D_t pointTarget { 0, 0};
 	bool  targetActive  { false };
 	float arrivalRadius {   1.0 };
 	float arrivalTime   {   1.0 };
 	SB 	  stBehavior    { SB::ARRIVE };
-
-	bool  destroy      { false };	// TO DEVS
+	
+	ENG::EntID_t eidTarget;
 };

@@ -64,23 +64,27 @@ ENG::Entity_t& createObserver(GOFactory_t& goFactory)
 }
 
 void createEntities(GOFactory_t& goFactory)
-{
+{	
+	// OBSERVER (ME)
 	auto& obs = createObserver(goFactory);
-	obs.getComponent<PhysicsCmp_t>()->friction = .9;
+	auto* phycmp = obs.getComponent<PhysicsCmp_t>();
+	phycmp->friction = .9;
 
 	// ENTITY-1 WITH AI
-	auto& ent1   = goFactory.createVisitor(500, 300, obs.getID());
+	auto& ent1   = goFactory.createAI(500, 300);
 	auto* aiCmp1 = ent1.getComponent<AICmp_t>();
+	aiCmp1->pointTarget   = {phycmp->x, phycmp->y};
 	aiCmp1->targetActive  = true;
 	aiCmp1->arrivalRadius = 15.0;
 	aiCmp1->arrivalTime   = 0.5;
 	aiCmp1->stBehavior	  = AICmp_t::SB::SEEK;
 
 	// ENTITY-2 WITH AI
-	auto& ent2   = goFactory.createVisitor(100, 450, obs.getID());
+	auto& ent2   = goFactory.createAI(100, 450);
 	auto* aiCmp2 = ent2.getComponent<AICmp_t>();
+	aiCmp2->pointTarget   = {phycmp->x, phycmp->y};
 	aiCmp2->targetActive  = true;
 	aiCmp2->arrivalRadius = 5.0;
 	aiCmp2->arrivalTime   = 1.0;
-	aiCmp2->stBehavior	  = AICmp_t::SB::PURSUE;
+	aiCmp2->stBehavior	  = AICmp_t::SB::ARRIVE;
 }

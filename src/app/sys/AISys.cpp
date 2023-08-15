@@ -24,7 +24,7 @@ adjustBestAngle(float& angle) const
 }
 
 constexpr float AISys_t::
-calculateAngle(AISys_t::Point2D_t const& point) const
+calculateAngle(Point2D_t const& point) const
 {
 	float orien { std::atan2(point.y, point.x) };
 	if (orien < 0) orien += 2*PhysicsCmp_t::PI; // not negative radian
@@ -52,7 +52,7 @@ alignAngle(float originOrien, float targetOrien, float arrivalTime) const
 }
 
 AISys_t::SteerTarget_t AISys_t::
-arrive(PhysicsCmp_t const& phycmp, AISys_t::Point2D_t const& pointT, float arrivalTime, float arrivalRadius) const
+arrive(PhysicsCmp_t const& phycmp, Point2D_t const& pointT, float arrivalTime, float arrivalRadius) const
 {
 // DISTANCE TARGET
 	auto [disxT, disyT, distanceT] = calculatePointDistance({phycmp.x, phycmp.y}, {pointT.x, pointT.y});
@@ -81,7 +81,7 @@ arrive(PhysicsCmp_t const& phycmp, AISys_t::Point2D_t const& pointT, float arriv
 }
 
 AISys_t::SteerTarget_t AISys_t::
-seek(PhysicsCmp_t const& phycmp, AISys_t::Point2D_t const& pointT, float arrivalTime) const
+seek(PhysicsCmp_t const& phycmp, Point2D_t const& pointT, float arrivalTime) const
 {
 // DISTANCE TO TARGET
 	auto [disxT, disyT, distanceT] = calculatePointDistance({phycmp.x, phycmp.y}, {pointT.x, pointT.y});
@@ -104,7 +104,7 @@ AISys_t::SteerTarget_t AISys_t::
 flee(PhysicsCmp_t const& phycmp, Point2D_t const& pTargetToFlee, float arrivalTime) const
 {
 	// DISTANCE TO TARGET (should move away)
-	const AISys_t::Point2D_t pTarget { phycmp.x + (phycmp.x - pTargetToFlee.x), phycmp.y + (phycmp.y - pTargetToFlee.y) };
+	const Point2D_t pTarget { phycmp.x + (phycmp.x - pTargetToFlee.x), phycmp.y + (phycmp.y - pTargetToFlee.y) };
 	return seek(phycmp, pTarget, arrivalTime);
 }
 
@@ -132,24 +132,24 @@ void AISys_t::update(ENG::EntityManager_t& entMan) const
 		if (!aicmp.targetActive) return;
 		auto* phycmp    = entMan.getRequiredCmp<PhysicsCmp_t>(aicmp);
 		if (!phycmp)    return;
-		auto* entTarget = entMan.getEntityByID(aicmp.eidTarget);
+		/*auto* entTarget = entMan.getEntityByID(aicmp.eidTarget);
 		if (!entTarget) return;
 		auto* phycmpT   = entTarget->getComponent<PhysicsCmp_t>();
-		if (!phycmpT)   return;
+		if (!phycmpT)   return;*/
 
 		phycmp->aLinear = phycmp->vAngular = 0;
 		SteerTarget_t steer;
 
 		switch(aicmp.stBehavior)
 		{
-		case AICmp_t::SB::ARRIVE:	steer = arrive(*phycmp, {phycmpT->x, phycmpT->y}, aicmp.arrivalTime, aicmp.arrivalRadius);
+		case AICmp_t::SB::ARRIVE:	steer = arrive(*phycmp, aicmp.pointTarget, aicmp.arrivalTime, aicmp.arrivalRadius);
 			break;
-		case AICmp_t::SB::SEEK:		steer = seek(*phycmp, {phycmpT->x, phycmpT->y}, aicmp.arrivalTime);
+		case AICmp_t::SB::SEEK:		steer = seek(*phycmp, aicmp.pointTarget, aicmp.arrivalTime);
 			break;
-		case AICmp_t::SB::FLEE:		steer = flee(*phycmp, {phycmpT->x, phycmpT->y}, aicmp.arrivalTime);
+		case AICmp_t::SB::FLEE:		steer = flee(*phycmp, aicmp.pointTarget, aicmp.arrivalTime);
 			break;
-		case AICmp_t::SB::PURSUE:	steer = pursue(*phycmp, *phycmpT, aicmp.arrivalTime);
-			break;
+		//case AICmp_t::SB::PURSUE:	steer = pursue(*phycmp, *phycmpT, aicmp.arrivalTime);
+		//	break;
 		default:
 			break;
 		}

@@ -44,7 +44,7 @@ ENG::Entity_t& GOFactory_t::createObserver(float x, float y) const
 	return ent;
 }
 
-ENG::Entity_t& GOFactory_t::createVisitor(float x, float y, ENG::EntID_t eid) const
+ENG::Entity_t& GOFactory_t::createAI(float x, float y) const
 {
 	auto& ent = createEntity(x, y);
 
@@ -58,8 +58,7 @@ ENG::Entity_t& GOFactory_t::createVisitor(float x, float y, ENG::EntID_t eid) co
 	//collCmp.maskCollision = CollisionCmp_t::BOUNDARY_LAYER;
 	//collCmp.boxRoot.box   = { 0, 0, renCmp.width-1, renCmp.height-1 };
 
-	auto& AICmp     = EntMan->addCmp<AICmp_t>(ent);
-	AICmp.eidTarget = eid;
+	EntMan->addCmp<AICmp_t>(ent);
 
 	return ent;
 }

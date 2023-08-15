@@ -7,8 +7,8 @@
 struct PhysicsCmp_t : ENG::Component_t<PhysicsCmp_t> {
 
 	static constexpr auto  PI      { std::numbers::pi_v<float> };
-	static constexpr float MAX_VLINEAR   { 				   100 }; // MAX Linear velocity to 100 PX per sec
-	static constexpr float MAX_VANGULAR  {               PI*.5 };
+	static constexpr float MAX_VLINEAR   { 				    80 }; // MAX Linear velocity to 100 PX per sec
+	static constexpr float MAX_VANGULAR  {               PI*.3 };
 	static constexpr float MAX_ALINEAR   { 		MAX_VLINEAR/.5 };
 	static constexpr float MAX_AANGULAR  { 	   MAX_VANGULAR/.5 };
 

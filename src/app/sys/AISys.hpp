@@ -6,6 +6,7 @@ namespace ENG {
 
 struct AICmp_t;
 struct PhysicsCmp_t;
+struct Point2D_t;
 
 struct AISys_t {
 
@@ -14,8 +15,6 @@ struct AISys_t {
 
 private:
 
-	struct Point2D_t { float x{0.0}, y{0.0}; };	
-
 	// MRU (only velocity control) or MRUA (acceleration control) on linear and angular
 	struct SteerTarget_t {
 		float linear  {0.0};
@@ -23,7 +22,7 @@ private:
 	};
 
 	// Steering Behavior
-	SteerTarget_t arrive(PhysicsCmp_t const&, AISys_t::Point2D_t const&, float arrivalTime, float arrivalRadius) const;
+	SteerTarget_t arrive(PhysicsCmp_t const&, Point2D_t const&, float arrivalTime, float arrivalRadius) const;
 	SteerTarget_t seek(PhysicsCmp_t const&, Point2D_t const&, float arrivalTime) const;
 	SteerTarget_t flee(PhysicsCmp_t const&, Point2D_t const&, float arrivalTime) const;
 	SteerTarget_t pursue(PhysicsCmp_t const&, PhysicsCmp_t const&, float arrivalTime) const;
