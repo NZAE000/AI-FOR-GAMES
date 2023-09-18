@@ -24,9 +24,9 @@ adjustBestAngle(float& angle) const
 }
 
 constexpr float AISys_t::
-calculateAngle(Point2D_t const& point) const
+calculateAngle(float distX, float distY) const
 {
-	float orien { std::atan2(point.y, point.x) };
+	float orien { std::atan2(distY, distX) };
 	if (orien < 0) orien += 2*PhysicsCmp_t::PI; // not negative radian
 	return orien;
 }
@@ -64,7 +64,7 @@ arrive(PhysicsCmp_t const& phycmp, Point2D_t const& pointT, float arrivalTime, f
 	}
 
 // ANGULAR VELOCITY
-	float orienTarget  { calculateAngle({disxT, disyT}) };
+	float orienTarget  { calculateAngle(disxT, disyT) };
 	float angularSteer { alignAngle(phycmp.orientation, orienTarget, arrivalTime) };
 
 // LINEAR VELOCITY
@@ -87,7 +87,7 @@ seek(PhysicsCmp_t const& phycmp, Point2D_t const& pointT, float arrivalTime) con
 	auto [disxT, disyT, distanceT] = calculatePointDistance({phycmp.x, phycmp.y}, {pointT.x, pointT.y});
 
 // ANGULAR VELOCITY
-	float orienTarget  { calculateAngle({disxT, disyT}) };
+	float orienTarget  { calculateAngle(disxT, disyT) };
 	float angularSteer { alignAngle(phycmp.orientation, orienTarget, arrivalTime) };
 
 // LINEAR ACCELERATION

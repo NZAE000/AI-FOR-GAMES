@@ -28,7 +28,7 @@ private:
 	SteerTarget_t pursue(PhysicsCmp_t const&, PhysicsCmp_t const&, float arrivalTime) const;
 
 	constexpr auto calculatePointDistance(Point2D_t const&, Point2D_t const&) const;
-	constexpr float calculateAngle(Point2D_t const&) const;
+	constexpr float calculateAngle(float distX, float distY) const;
 	constexpr float alignAngle(float originOrien, float targetOrien, float arrivalTime) const;
 	constexpr float adjustBestAngle(float& angle) const;
 };
